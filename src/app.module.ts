@@ -3,18 +3,10 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ProductModule } from './product/product.module';
 import { DatabaseModule } from './core/database/database.module';
-// import { OrderModule } from './order/order.module';
-import { ConfigModule } from '@nestjs/config';
-
 @Module({
   imports: [
     ProductModule,
     DatabaseModule,
-    // OrderModule,
-    ConfigModule.forRoot({
-      envFilePath: '../.env',
-      isGlobal: true, // Makes the config globally available
-    }),
   ],
   controllers: [AppController],
   providers: [AppService],
