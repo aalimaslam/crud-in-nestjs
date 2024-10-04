@@ -1,24 +1,26 @@
+import { Product } from 'src/product/entity/product.entity';
 import {
   Column,
   CreateDateColumn,
   Entity,
+  ManyToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
 
 @Entity()
-export class Product {
+export class Order {
   @PrimaryGeneratedColumn('increment')
   id: number;
 
   @Column()
-  title: string;
+  amount: number;
 
   @Column()
-  description: string;
+  quantity: number;
 
-  @Column()
-  price: number;
+  @ManyToOne(() => Product, (product) => product.id)
+  product: Product;
 
   @CreateDateColumn()
   createdAt: Date;
