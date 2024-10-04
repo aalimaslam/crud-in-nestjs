@@ -7,10 +7,13 @@ import {
   ParseIntPipe,
   Patch,
   Post,
+  UseGuards,
 } from '@nestjs/common';
 import { ProductService } from './product.service';
 import { ProductCreate } from './dto/product.create.dto';
-
+import { AuthGuard } from 'src/core/guards/auth.guard';
+import { AdminRoleGuard } from 'src/core/guards/role.guard';
+@UseGuards(AuthGuard)
 @Controller('product')
 export class ProductController {
   constructor(private productService: ProductService) {}
@@ -23,8 +26,8 @@ export class ProductController {
   async getProductById(@Param('id', ParseIntPipe) id: number) {
     return await this.productService.getById(id);
   }
-
   @Post()
+  @UseGuards(AdminRoleGuard)
   async create(@Body() product: ProductCreate) {
     return await this.productService.createProduct(product);
   }
